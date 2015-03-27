@@ -1,0 +1,31 @@
+*
+{
+    margin: 0px;
+    outline: 0px solid transparent;
+    border: 0px solid transparent;
+    padding: 0px;
+}
+
+body
+{
+    font-size: 14px;
+    font-family: "微軟正黑體", Arial;
+}
+
+.end-of-float
+{
+    clear: both;
+}
+
+.-tac
+{
+    text-align: center;
+}
+
+
+header
+{
+    border-bottom: 1px solid rgb(46,98,205);
+    padding: 10px;
+    color: rgb(46,98,205);
+}

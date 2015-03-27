@@ -1,0 +1,121 @@
+總站
+
+CREATE TABLE players (
+    id          INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '識別碼',
+    handle      VARCHAR(32) NOT NULL COMMENT '識別稱號',
+    username    VARCHAR(256) NOT NULL COMMENT '使用者帳號',
+    password    VARCHAR(32) NOT NULL COMMENT '使用者密碼',
+    type        TINYINT NOT NULL DEFAULT 0 COMMENT '使用者類別',
+    source      TINYINT NOT NULL DEFAULT 0 COMMENT '帳號來源',
+    server      VARCHAR(15) NOT NULL COMMENT '伺服器',
+    continent   VARCHAR(15) NOT NULL COMMENT '所在地域',
+    name        TEXT NOT NULL COMMENT '門派名稱',
+    location    INT UNSIGNED NOT NULL COMMENT '門派位置',
+    money       INT UNSIGNED NOT NULL DEFAULT 0 COMMENT '門派資產',
+    prestige    INT UNSIGNED NOT NULL DEFAULT 0 COMMENT '門派聲望',
+    people      INT UNSIGNED NOT NULL DEFAULT 0 COMMENT '門派人數',
+    moral       TEXT COMMENT '善惡傾向',
+    flag        TEXT COMMENT '旗幟檔案',
+    gem         INT UNSIGNED DEFAULT 0 COMMENT '寶石',
+    last        DATETIME COMMENT '最後上線時間'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE itemlist (
+    id          INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '識別碼',
+    handle      VARCHAR(32) NOT NULL COMMENT '識別稱號',
+    name        VARCHAR(32) NOT NULL COMMENT '物品名稱',
+    type        VARCHAR(15) NOT NULL COMMENT '物品類型',
+    attr        VARCHAR(15) NOT NULL COMMENT '陰陽五行',
+    power       INT NOT NULL DEFAULT 0 COMMENT '物品能力值',
+    money       INT UNSIGNED NOT NULL DEFAULT 0 COMMENT '物品價值'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+物品類型(type)
+兵器：刀/劍、棍/棒/杖/鎚、手套、槍、鞭、匕首；爪、暗器、奇門
+ - 兵器的 power 用以增加自己招式造成的制敵率(+)或是減少對手造成的制敵率(-)。
+飾品：寶珠、玉佩、手鐲、髮簪、戒指、項鍊、符錄、經書
+ - 飾品的 power 用以增加因緣(+)或是減少招式的消耗(-)。
+丹藥：補精、補氣、補神、養生、護脈
+ - 藥物的 power 表示效果。
+材料：藥材、金屬、玉石、木材
+ - 材料的 power 影響練丹的成功率。
+
+陰陽五行：甲陽木、乙陰木；丙陽火、丁陰火；戊陽土、己陰土；庚陽金、辛陰金；壬陽水、癸陰水
+
+
+CREATE TABLE locations (
+    id          INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '識別碼',
+    handle      VARCHAR(32) NOT NULL COMMENT '識別稱號',
+    name        VARCHAR(32) NOT NULL COMMENT '地區名稱',
+    continent   VARCHAR(15) NOT NULL COMMENT '所在地域',
+    position    VARCHAR(3) NOT NULL COMMENT '區塊位置',
+    maximum     BIGINT UNSIGNED NOT NULL COMMENT '可用建地',
+    ecosystems  VARCHAR(15) NOT NULL COMMENT '生態系',
+    government  VARCHAR(15) COMMENT '管理勢力',
+    prosperity  SMALLINT NOT NULL DEFAULT 0 COMMENT '繁榮程度',
+    players     SMALLINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '門派數量'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+位置表示法
+每一個區域都分成四層，內到外分別是ABCD。
+A圈只有一個區塊，A00。
+B圈有四個，北東南西，B01-B04。
+C圈有十二個，子丑寅卯辰巳午未申酉戌亥，C01-C12。
+D圈有六十個，D01-D60。
+
+
+CREATE TABLE movementlist (
+    id          INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '識別碼',
+    handle      VARCHAR(32) NOT NULL COMMENT '識別稱號',
+    name        VARCHAR(32) NOT NULL COMMENT '招式名稱',
+    weapon      VARCHAR(15) COMMENT '使用兵器類型',
+    belong      INT UNSIGNED DEFAULT 0 COMMENT '所屬武功，0-散招',
+    ordinal     TINYINT UNSIGNED COMMENT '第幾式',
+    yinyang     TINYINT COMMENT '陰陽：-1-陰，1-陽',
+    wuxing      TINYINT COMMENT '五行：1-木，2-火，3-土，4-金，5-水',
+    hitdice     TINYINT UNSIGNED NOT NULL DEFAULT 6 COMMENT '命中骰',
+    timing      TINYINT UNSIGNED NOT NULL DEFAULT 1 COMMENT '啟動時機：0-使出後，1-成功後，2-失敗後',
+    duration    TINYINT UNSIGNED NOT NULL DEFAULT 1 COMMENT '持續時間',
+    target      TINYINT UNSIGNED COMMENT '對象：0-不限制，1-同我，2-生我，3-我生，4-相生，5-剋我，6-我剋，7-相剋',
+    effect      TINYINT COMMENT '效果，負值表示逆向：0-無效果，1-增加命中率，2-制敵加成，3-加速制敵提昇，4-延長持續時間'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+分流
+
+CREATE TABLE players (
+    id          INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '識別碼',
+    handle      VARCHAR(32) NOT NULL COMMENT '識別稱號',
+    name        VARCHAR(32) NOT NULL COMMENT '門派名稱',
+    type        TINYINT UNSIGNED NOT NULL DEFAULT 1 COMMENT '類型：1-鏢局，2-山寨，3-幫派，4-家族，5-教派，6-叛軍',
+    religion    TINYINT UNSIGNED NOT NULL DEFAULT 1 COMMENT '宗派：1-儒，2-佛，3-道',
+    apprentice  SMALLINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '弟子人數',
+    master      SMALLINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '師父人數',
+    maximum     SMALLINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '人數上限',
+    money       INT UNSIGNED NOT NULL DEAFULT 0 COMMENT '門派資產',
+    prestige    INT NOT NULL DEFAULT 0 COMMENT '門派聲望',
+    moral       INT NOT NULL DEFAULT 0 COMMENT '善惡傾向',
+    
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE apprentices (
+    id          INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '識別碼',
+    handle      VARCHAR(32) NOT NULL COMMENT '識別稱號',
+    name        VARCHAR(32) NOT NULL COMMENT '姓名',
+    player      INT UNSIGNED NOT NULL KEY COMMENT '門派',
+    location    INT UNSIGNED DEFAULT 0 COMMENT '所處地區，0-自家門派',
+    event       INT UNSIGNED DEFAULT 0 COMMENT '進行中事件，0-閒置',
+    fullname    MEDIUMTEXT COMMENT '全名(json)',
+    gender      TINYINT NOT NULL DEFAULT 1 COMMENT '性別：1-男，2-女',
+    race        TINYINT NOT NULL DEFAULT 0 COMMENT '種族：0-人，1-妖精怪',
+    attributes  MEDIUMTEXT COMMENT '能力向量(vector)',
+    causality   MEDIUMTEXT COMMENT '因果向量(vector)',
+    e_main      INT UNSIGNED COMMENT '主要物品',
+    e_side      INT UNSIGNED COMMENT '副手物品',
+    e_prepare   INT UNSIGNED COMMENT '備用物品',
+    equipments  MEDIUMTEXT COMMENT '物品列表',
+    kufungs     MEDIUMTEXT COMMENT '招式列表(json)',
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

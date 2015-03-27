@@ -1,0 +1,57 @@
+
+.-border
+{
+    float: left;
+    display: block;
+    max-width: 90%;
+    margin: 9px;
+    border: 1px solid lightgray;
+    border-radius: 2px;
+    padding: 10px;
+    background-color: rgb(250,250,250);
+}
+
+/*-------------------------------------------------------------\
+ * Form Element
+\*------------------------------------------------------------*/
+input,
+select
+{
+    margin: 4px;
+    border: 1px solid lightgray;
+    border-radius: 1px;
+    padding: 5px;
+    background-color: white;
+    color: black;
+    font-size: 16px;
+    line-height: 20px;
+}
+input:hover,
+select:hover
+{
+    border-color: gray;
+}
+
+input[type="number"]
+{
+    max-width: 60px;
+}
+
+select
+{
+    min-width: 120px;
+}
+
+button
+{
+    margin: 4px;
+    border: 1px solid rgb(200,200,200);
+    border-radius: 5px;
+    padding: 5px;
+    background-color: rgb(250,250,250);
+    color: rgb(150,150,150);
+    font-size: 18px;
+    line-height: 20px;
+    min-width: 120px;
+    cursor: pointer;
+}
