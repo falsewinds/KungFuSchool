@@ -36,10 +36,11 @@ div.color-ticket > table
 
 div.color-ticket > table > thead td
 {
-    font-size: 24px;
-    line-height: 30px;
+    font-size: 16px;
+    line-height: 20px;
 }
 
+div.color-ticket > table > tbody th,
 div.color-ticket > table > tbody td
 {
     font-size: 12px;
