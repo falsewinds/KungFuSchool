@@ -33,11 +33,16 @@ while( $line = fgetcsv($fp) )
     $rgb16 = strtoupper($color['rgb']);
     if( empty($rgb16) ) { continue; }
 
-    $c_row = $dba->_query('SELECT more,alias FROM colors WHERE id=:cid',array(':cid':$rgb16));
+    $c_row = $dba->_query('SELECT name,more,alias FROM colors WHERE id=:cid',array(':cid'=>$rgb16));
     if( $row = $c_row->fetch(PDO::FETCH_ASSOC) )
     {
         $alias = json_decode($row['alias'],true);
-        if( isset($color['eng_name']) ) { $alias['enUS'] = trim($color['eng_name']); }
+        if( isset($color['name']) )
+        {
+            $name = rtrim($color['name'],'色');
+            if( $name != $row['name'] ) { $alias[] = $name; }
+        }
+        if( isset($color['eng_name']) ) { $alias[] = trim($color['eng_name']); }
         $description = $row['more'];
         if( isset($color['description']) ) { $description .= trim($color['description']); }
         $dba->_execute('UPDATE colors SET more=:more,alias=:alias WHERE id=:cid LIMIT 1',array(
@@ -136,8 +141,8 @@ while( $line = fgetcsv($fp) )
     if( isset($color['description']) ) { $colordata[':more'] = trim($color['description']); }
 
     $alias = array();
-    if( isset($color['eng_name']) ) { $alias['enUS'] = trim($color['eng_name']); }
-    $colordata[':alias'] = json_encode($alias);
+    if( isset($color['eng_name']) ) { $alias[] = trim($color['eng_name']); }
+    $colordata[':alias'] = json_encode($alias,JSON_UNESCAPED_UNICODE);
 
     $dba->_execute(
         'INSERT INTO colors(id,red,green,blue,hue,sv,sl,cyan,magenta,yellow,black,name,more,alias,tags) '
