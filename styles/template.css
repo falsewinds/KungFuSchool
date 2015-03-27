@@ -31,7 +31,7 @@ div.color-ticket > table
     margin-left: 110px;
     width: 190px;
     border-collapse: separate;
-    border-spacing: 5px;
+    border-spacing: 1px;
 }
 
 div.color-ticket > table > thead td
