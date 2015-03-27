@@ -88,15 +88,15 @@ label { display: block; margin: 2px; }
         </label>
         <label>
             <select name="yinyang">
-                <option value="1"<?=($movement['yinyang']==1)?' selected':'')?>>陽</option>
-                <option value="-1"<?=($movement['yinyang']==-1)?' selected':'')?>>陰</option>
+                <option value="1"<?=(($movement['yinyang']==1)?' selected':'')?>>陽</option>
+                <option value="-1"<?=(($movement['yinyang']==-1)?' selected':'')?>>陰</option>
             </select>
             <select name="wuxing">
-                <option value="1"<?=($movement['wuxing']==1)?' selected':'')?>>木</option>
-                <option value="2"<?=($movement['wuxing']==2)?' selected':'')?>>火</option>
-                <option value="3"<?=($movement['wuxing']==3)?' selected':'')?>>土</option>
-                <option value="4"<?=($movement['wuxing']==4)?' selected':'')?>>金</option>
-                <option value="5"<?=($movement['wuxing']==5)?' selected':'')?>>水</option>
+                <option value="1"<?=(($movement['wuxing']==1)?' selected':'')?>>木</option>
+                <option value="2"<?=(($movement['wuxing']==2)?' selected':'')?>>火</option>
+                <option value="3"<?=(($movement['wuxing']==3)?' selected':'')?>>土</option>
+                <option value="4"<?=(($movement['wuxing']==4)?' selected':'')?>>金</option>
+                <option value="5"<?=(($movement['wuxing']==5)?' selected':'')?>>水</option>
             </select>
         </label>
         <label>
